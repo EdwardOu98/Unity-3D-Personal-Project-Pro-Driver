@@ -11,6 +11,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float turnSpeed = 50.0f;
     [SerializeField] private List<WheelCollider> allWheels;
     [SerializeField] private TextMeshProUGUI speedometerText;
+    [SerializeField] private Text currentScoreText;
+
+    private int currentScore = 100;
+
     // [SerializeField] AudioClip engineSound;
     // [SerializeField] private GameObject CenterOfMass;
     private Rigidbody playerRb;
@@ -22,6 +26,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         playerRb = GetComponent<Rigidbody>();
+        currentScoreText.text = "Score: " + currentScore;
         // audioSource = GetComponent<AudioSource>();
         // playerRb.centerOfMass = CenterOfMass.transform.position;
     }
@@ -39,11 +44,18 @@ public class PlayerController : MonoBehaviour
             transform.Rotate(Vector3.up, turnSpeed * horizontalInput * Time.deltaTime);
 
             speed = Mathf.RoundToInt(playerRb.velocity.magnitude * 3.6f);
-            speedometerText.SetText("Speed: " + speed + "KM/H");
+            speedometerText.SetText("Speed: " + speed + " KM/H");
 
             // audioSource.PlayOneShot(engineSound, 0.005f * speed);
         }
+
         
+    }
+
+    public void UpdateScore(int scoreToDeduct)
+    {
+        currentScore -= scoreToDeduct;
+        currentScoreText.text = "Score: " + currentScore;
     }
 
     private void FixedUpdate()
