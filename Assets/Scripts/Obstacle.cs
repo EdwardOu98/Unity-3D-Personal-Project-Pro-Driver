@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class Obstacle : MonoBehaviour
 {
-    [SerializeField] int scoreToDeduct;
-    [SerializeField] AudioClip hitSound;
-    private PlayerController playerController;
-    private AudioSource audioSource;
+    [SerializeField] protected int scoreToDeduct;
+    [SerializeField] protected AudioClip hitSound;
+    protected PlayerController playerController;
+    protected AudioSource audioSource;
+
+    protected float destroyDelay = 0.05f;
     // Start is called before the first frame update
     void Start()
     {
@@ -34,7 +36,7 @@ public class Obstacle : MonoBehaviour
 
     IEnumerator DestroyObstacle()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(destroyDelay);
         Destroy(gameObject);
     }
 }
