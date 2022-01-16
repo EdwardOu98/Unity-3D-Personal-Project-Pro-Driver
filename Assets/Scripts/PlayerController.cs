@@ -12,6 +12,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private List<WheelCollider> allWheels;
     [SerializeField] private TextMeshProUGUI speedometerText;
     [SerializeField] private Text currentScoreText;
+    [SerializeField] private Text gameOverText;
+    [SerializeField] private Text congratsText;
 
     private int currentScore = 100;
 
@@ -21,6 +23,7 @@ public class PlayerController : MonoBehaviour
     // private AudioSource audioSource;
     private int wheelsOnGround;
     private float speedLimit = 20.0f;
+    private bool isGameOver = false;
 
     // Start is called before the first frame update
     void Start()
@@ -34,7 +37,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(isOnGround())
+        if(isOnGround() && !isGameOver)
         {
             float forwardInput = Input.GetAxis("Vertical");
             float horizontalInput = Input.GetAxis("Horizontal");
@@ -48,7 +51,18 @@ public class PlayerController : MonoBehaviour
 
             // audioSource.PlayOneShot(engineSound, 0.005f * speed);
         }
-
+        else if (isGameOver)
+        {
+            playerRb.velocity = Vector3.zero;
+            if(transform.position.z >= 155f)
+            {
+                congratsText.gameObject.SetActive(true);
+            }
+            else
+            {
+                gameOverText.gameObject.SetActive(true);
+            }
+        }
         
     }
 
@@ -61,6 +75,10 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         playerRb.velocity = Vector3.ClampMagnitude(playerRb.velocity, speedLimit);
+        if(currentScore <= 0 || gameObject.transform.position.z >= 155f)
+        {
+            isGameOver = true;
+        }
     }
 
     int CountWheels()
