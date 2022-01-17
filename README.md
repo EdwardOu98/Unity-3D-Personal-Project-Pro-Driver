@@ -4,10 +4,10 @@ This is my first personal project developed with the Unity 3D Engine. It is a si
 * **Edward Ou** : Project Design, Coding, Scene Design
 
 # Project Components
-* [ ] Menu Scene
-  - [ ] Start Button - Connected with the main game scene
-  - [ ] High Score Button - Connected with the high score scene where a list of the players' score will be displayed
-  - [ ] Quit Button - Exit the game when clicked
+* [x] Menu Scene
+  - [x] Start Button - Connected with the main game scene
+  - [x] High Score Button - Connected with the high score scene where a list of the players' score will be displayed
+  - [x] Quit Button - Exit the game when clicked
 * [ ] High Score Scene
   - [ ] Title
   - [ ] Display history scores
