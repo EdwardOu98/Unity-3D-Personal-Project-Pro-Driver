@@ -10,6 +10,7 @@ This is my first personal project developed with the Unity 3D Engine. It is a si
   - [x] Quit Button - Exit the game when clicked
 * [ ] High Score Scene
   - [ ] Title
+  - [x] Display one player with the highest score (Temporary)
   - [ ] Display history scores
 * [ ] Main game scene
   - [x] Building the race track
