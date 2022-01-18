@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class PlayerController : MonoBehaviour
@@ -14,6 +15,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Text currentScoreText;
     [SerializeField] private Text gameOverText;
     [SerializeField] private Text congratsText;
+    [SerializeField] private Text palyerNameText;
+    [SerializeField] private Text highScoreText;
 
     private int currentScore = 100;
 
@@ -24,12 +27,15 @@ public class PlayerController : MonoBehaviour
     private int wheelsOnGround;
     private float speedLimit = 20.0f;
     private bool isGameOver = false;
+    private bool isSaved = false;
 
     // Start is called before the first frame update
     void Start()
     {
         playerRb = GetComponent<Rigidbody>();
         currentScoreText.text = "Score: " + currentScore;
+        palyerNameText.text = "Player: " + GameManager.Instance.username;
+        highScoreText.text = "High Score: " + GameManager.Instance.recordKeeper + ": " + GameManager.Instance.highScore.ToString();
         // audioSource = GetComponent<AudioSource>();
         // playerRb.centerOfMass = CenterOfMass.transform.position;
     }
@@ -57,10 +63,21 @@ public class PlayerController : MonoBehaviour
             if(transform.position.z >= 155f)
             {
                 congratsText.gameObject.SetActive(true);
+                if(currentScore > GameManager.Instance.highScore && !isSaved)
+                {
+                    GameManager.Instance.score = currentScore;
+                    GameManager.Instance.SaveScore();
+                }
+                isSaved = true;
             }
             else
             {
                 gameOverText.gameObject.SetActive(true);
+            }
+
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                SceneManager.LoadScene(0);
             }
         }
         
