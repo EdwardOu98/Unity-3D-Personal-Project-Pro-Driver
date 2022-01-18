@@ -9,10 +9,15 @@ This is my first personal project developed with the Unity 3D Engine. It is a si
   - [x] High Score Button - Connected with the high score scene where a list of the players' score will be displayed
   - [x] Quit Button - Exit the game when clicked
 * [ ] High Score Scene
-  - [ ] Title
+  - [x] Title
   - [x] Display one player with the highest score (Temporary)
   - [ ] Display history scores
-* [ ] Main game scene
+* [x] Game Manager
+  - [x]  Pass player name from menu scene to main game scene
+  - [x]  Keep a copy of the highest score in all games and the corresponding player name
+  - [x]  Save a single highest score and the corresponding player name to a json file
+  - [x]  Load a single highest score and the corresponding player name from a json file
+* [x] Main game scene
   - [x] Building the race track
     - [x] Ground
     - [x] Side Walls - Left, right, and end of track
@@ -27,5 +32,6 @@ This is my first personal project developed with the Unity 3D Engine. It is a si
   - [x] Particle effect when the player hit a special kind of obstacle
   - [x] Display current speed when game is not over
   - [x] Display current score
-  - [ ] Display the highest score of all players
+  - [x] Display the name of current player
+  - [x] Display the highest score of all players
   - [x] Display message when game is end : Game Over when the player fails and Congratulations when the player succeeds
