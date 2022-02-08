@@ -43,7 +43,24 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(isOnGround() && !isGameOver)
+        playerRb.velocity = Vector3.ClampMagnitude(playerRb.velocity, speedLimit);
+        if (currentScore <= 0 || gameObject.transform.position.z >= 155f || gameObject.transform.position.y < -5)
+        {
+            isGameOver = true;
+        }
+
+    }
+
+    public void UpdateScore(int scoreToDeduct)
+    {
+        currentScore -= scoreToDeduct;
+        currentScoreText.text = "Score: " + currentScore;
+    }
+
+    private void FixedUpdate()
+    {
+        
+        if (isOnGround() && !isGameOver)
         {
             float forwardInput = Input.GetAxis("Vertical");
             float horizontalInput = Input.GetAxis("Horizontal");
@@ -60,10 +77,10 @@ public class PlayerController : MonoBehaviour
         else if (isGameOver)
         {
             playerRb.velocity = Vector3.zero;
-            if(transform.position.z >= 155f)
+            if (transform.position.z >= 155f)
             {
                 congratsText.gameObject.SetActive(true);
-                if(currentScore > GameManager.Instance.highScore && !isSaved)
+                if (currentScore > GameManager.Instance.highScore && !isSaved)
                 {
                     GameManager.Instance.score = currentScore;
                     GameManager.Instance.SaveScore();
@@ -79,22 +96,6 @@ public class PlayerController : MonoBehaviour
             {
                 SceneManager.LoadScene(0);
             }
-        }
-        
-    }
-
-    public void UpdateScore(int scoreToDeduct)
-    {
-        currentScore -= scoreToDeduct;
-        currentScoreText.text = "Score: " + currentScore;
-    }
-
-    private void FixedUpdate()
-    {
-        playerRb.velocity = Vector3.ClampMagnitude(playerRb.velocity, speedLimit);
-        if(currentScore <= 0 || gameObject.transform.position.z >= 155f)
-        {
-            isGameOver = true;
         }
     }
 
